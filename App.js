@@ -1,14 +1,10 @@
+import 'react-native-gesture-handler';
+
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-const App = () => {
-  return (
-    <SafeAreaView style={{flex:1}}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>Roaster Buster</Text></View>
-    </SafeAreaView>
-  );
-};
+import BottomTabsNavigator from "./navigation/tabs.navigator";
 
-const styles = StyleSheet.create({});
+const App = () => (<NavigationContainer><BottomTabsNavigator /></NavigationContainer>);
 
 export default App;
