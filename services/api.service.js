@@ -6,9 +6,9 @@ class ApiService {
     async get(url, params) {
         try {
             let response = await axios.get(url, params = {});
-            return get(response, 'data', []);
+            return Promise.resolve(get(response, 'data', []));
         } catch (error) {
-            console.log('Error (GET):', error);
+            return Promise.reject(error);
         }
     }
 }
