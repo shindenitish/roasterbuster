@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 
-const EventsScreen = props => {
+import { useSelector } from "react-redux";
 
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Events Screen</Text>
-        </View>
-    );
+import EventList from "../../components/event-list.component";
+
+const EventsScreen = () => {
+    const events = useSelector(state => state.events.events);
+
+    return (<View style={{ flex: 1 }}><EventList events={events} today={false} /></View>);
 }
-
-const styles = StyleSheet.create({});
 
 export default EventsScreen;
