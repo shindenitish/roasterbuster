@@ -8,9 +8,9 @@ class EventsApi {
 
     async getEvents() {
         try {
-            let events = await ApiService.get('https://rosterbuster.aero/wp-content/uploads1/dummy-response.json');
+            let events = await ApiService.get('https://rosterbuster.aero/wp-content/uploads/dummy-response.json');
             Store.dispatch(setEvents(events));
-            Toast.show('Events updated', 2000);
+            Toast.show('Events updated', 1500);
         } catch (error) {
             console.log('Error (GET Events):', error.message);
             Toast.show('Unable to fetch latest events', 2000);

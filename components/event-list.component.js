@@ -4,7 +4,7 @@ import { Text, StyleSheet, SectionList } from "react-native";
 import moment from "moment";
 import 'moment-duration-format';
 
-import { sortBy, groupBy } from "lodash";
+import { sortBy, isEmpty, groupBy } from "lodash";
 
 import EventsApi from "../api/events.api";
 
@@ -15,6 +15,10 @@ const EventList = props => {
     let { events, today } = props;
     const [refreshing, setRefreshing] = useState(false);
 
+    if (isEmpty(events)) {
+        events = [];
+    }
+
     if (today) {
         events = events.filter(e => { return moment(e.Date, 'DD/MM/YYYY').isSame(moment(), 'day') });
     }
@@ -24,8 +28,13 @@ const EventList = props => {
 
     return (
         <SectionList
+            windowSize={10}
+            initialNumToRender={5}
+            maxToRenderPerBatch={10}
+
             sections={sectionedList}
             style={{ flex: 1, width: '100%' }}
+
             refreshing={refreshing}
             onRefresh={async () => {
                 setRefreshing(true);
@@ -34,7 +43,7 @@ const EventList = props => {
             }}
             keyExtractor={(item, index) => index.toString()}
             renderItem={(item) => <EventItem event={item?.item} />}
-            ListEmptyComponent={EmptyList}
+            ListEmptyComponent={< EmptyList today/>}
             renderSectionHeader={({ section: { title } }) => (<Text style={today ? styles.todayEvents : styles.allEvents}>{moment(title, 'DD/MM/YYYY').calendar({ sameDay: today ? '[Upcoming Events]' : 'ddd D MMM YYYY ([Today])', lastDay: 'ddd D MMM YYYY', sameElse: 'ddd D MMM YYYY', nextDay: 'ddd D MMM YYYY ([Tomorrow])' })}</Text>)}
         />
     );
