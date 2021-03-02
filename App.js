@@ -1,10 +1,13 @@
-import 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import SplashScreen from "react-native-splash-screen";
 
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import BottomTabsNavigator from "./navigation/tabs.navigator";
 
-const App = () => (<NavigationContainer><BottomTabsNavigator /></NavigationContainer>);
+const App = () => {
+    useEffect(() => { SplashScreen.hide(); }, []);
+    return (<NavigationContainer><BottomTabsNavigator /></NavigationContainer>);
+};
 
 export default App;
